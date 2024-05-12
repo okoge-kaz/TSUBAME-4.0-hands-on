@@ -70,7 +70,7 @@ NIIのプロジェクトには768,000GBのグループ領域が割り当てら�
 ## ソフトウェア環境
 
 Environment Modulesが導入されています。
-使い慣れていない方は、[こちら]9https://modules.readthedocs.io/en/latest/)をご覧ください。
+使い慣れていない方は、[こちら](https://modules.readthedocs.io/en/latest/)をご覧ください。
 
 ```bash
 module avail
@@ -82,6 +82,51 @@ module avail
 - cudnn/x.x.x : 使用する CUDA Toolkit version に合ったversionを選択してください
 - nccl/x.x.x : 使用する nccl version に合ったversionを選択してください
 
+TSUBAME環境の`cudnn/8.9.7`は`cuda/11.8.0`に依存していますので、cuda versionがauto loadされます。
+そのため以下のような組み合わせが可能です。
+
+```bash
+ 1) cuda/11.8.0   2) cudnn/8.9.7   3) nccl/2.20.5
+```
+
 ## ジョブスケジューリング
 
+利用可能な資源タイプは以下のとおりです。[参考](https://www.t4.gsic.titech.ac.jp/docs/handbook.ja/jobs/#resource_type)
+
+![image](https://github.com/okoge-kaz/TSUBAME-4.0-hands-on/assets/68278821/634eafe6-c55f-4f20-898f-b94d21de4897)
+
+CPUしか利用しないtokenize作業などはcpu_4-160をご利用ください。
+また、install作業などでGPUが必要な場合も`gpu_h`または、`gpu_1`をご利用ください。
+
+例えばインタラクティブジョブを取る例は以下のとおりです。
+
+```bash
+qrsh -g tgh-NII-LLM -q prior -l gpu_h=1 -l h_rt=1:00:00
+```
+
+**注意**: `-q prior`をつけるのをお忘れなく
+
+
+バッチジョブを投入する場合は、以下のような job scriptを記載します。
+
+```bash
+#!/bin/sh
+#$ -cwd
+#$ -l [資源タイプ] =[個数]
+#$ -l h_rt=[経過時間]
+#$ -p [プライオリティ]
+
+[module環境のロード]
+
+[プログラム実行]
+```
+
+その後、`qsub`コマンドでにてジョブを投入してください。
+以下は例です。
+
+```bash
+qsub -g tgh-NII-LLM -q prior scripts/tsubame/sample.sh
+```
+
+なお、`-q prior`は定額制ジョブを示すオプションです。詳細は[こちら](https://www.t4.gsic.titech.ac.jp/docs/handbook.ja/jobs/#subscription_job)をご覧ください。
 
