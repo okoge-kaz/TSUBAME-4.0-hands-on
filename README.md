@@ -43,3 +43,45 @@ Host tsubame
 詳しい禁止事項については以下をご覧ください
 https://www.t4.gsic.titech.ac.jp/docs/all/handbook.ja/start/#login_limit
 vscode, jupyter等でlogin nodeに接続することも厳禁です。(上述のリンクにもあるように)
+
+
+## ストレージについて
+
+ホームディレクトリは25GiBが上限です。
+cacheの保存先などにしていて、ジョブが実行できない等の現象が起きた場合は、保存先を変えたり、いらないファイルを削除したりしてください。
+
+以下のコマンドでhome directoryの現在の使用状況が確認できます(最大1日程度の遅延が発生することがありますが、稀です)
+
+```bash
+$ t4-user-info disk home
+  uid name         b_size(GB) b_quota(GB)    i_files    i_quota
+---------------------------------------------------------------
+ 2011 TESTUSER              7          25     101446    2000000
+```
+
+NIIのプロジェクトには768,000GBのグループ領域が割り当てられています。
+`/gs/bs/tgh-NII-LLM`がディレクトリになります。
+
+
+こちらの領域は、大容量ストレージ領域と呼ばれるストレージになり、ソースコード、データセット、チェックポイント等の保存先として利用します。
+
+**注意**: `/gs/fs`領域は、ソースコード、データセット、チェックポイントの置き場ではありません。主に高速に読み出す必要があるものを置く場所です。容量も非常に小さいのでデータ等を置くことはご遠慮ください。
+
+## ソフトウェア環境
+
+Environment Modulesが導入されています。
+使い慣れていない方は、[こちら]9https://modules.readthedocs.io/en/latest/)をご覧ください。
+
+```bash
+module avail
+```
+
+で利用可能なmodule環境が表示されます。
+
+- cuda/x.x.x : CUDA Toolkitのことを指します。(Driverではありません)
+- cudnn/x.x.x : 使用する CUDA Toolkit version に合ったversionを選択してください
+- nccl/x.x.x : 使用する nccl version に合ったversionを選択してください
+
+## ジョブスケジューリング
+
+
