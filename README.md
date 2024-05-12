@@ -129,7 +129,13 @@ qsub -g tgh-NII-LLM -q prior scripts/tsubame/sample.sh
 なお、`-q prior`は定額制ジョブを示すオプションです。詳細は[こちら](https://www.t4.gsic.titech.ac.jp/docs/handbook.ja/jobs/#subscription_job)をご覧ください。
 
 
-## vscode 利用者の方へ
+## その他
+
+### TSUBAME-4.0 の使用状況
+
+[こちらから](http://mon.t4.gsic.titech.ac.jp:3000/d/gfS9vcbIz/job-scheduler-node-status?orgId=3)使用状況を確認することができます。
+
+### vscode 利用者の方へ
 
 前述の通りTSUBAME では vscode を利用してlogin nodeにアクセスすることができません。
 1ユーザーあたりのCPU使用量の制限により、実際につなごうとしてもつなげないようになっています。
