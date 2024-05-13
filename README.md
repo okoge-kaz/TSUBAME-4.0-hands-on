@@ -139,3 +139,5 @@ qsub -g tgh-NII-LLM -q prior scripts/tsubame/sample.sh
 
 前述の通りTSUBAME では vscode を利用してlogin nodeにアクセスすることができません。
 1ユーザーあたりのCPU使用量の制限により、実際につなごうとしてもつなげないようになっています。
+
+[vscode remoteに関する注意事項](https://www.t4.gsic.titech.ac.jp/node/47)
